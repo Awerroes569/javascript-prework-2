@@ -1,0 +1,43 @@
+/* GLOBAL */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  /* Temporary outline borders for debugging */
+  outline: 1px solid red !important;
+}
+
+body {
+  max-width: 992px;
+}
+
+.buttons {
+  font-size: 48px;
+}
+.buttons .move {
+  border-radius: 8px;
+}
+
+.result {
+  min-width: 200px;
+  font-size: 48px;
+}
+.result p {
+  text-align: center;
+}
+
+button {
+  background-color: black;
+  color: white;
+}
+button:disabled {
+  background-color: #4d4343;
+  /* Light gray background */
+  color: #999;
+  /* Gray text color */
+  cursor: not-allowed;
+  /* Change cursor to not-allowed */
+  /* Add additional styles as needed */
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Nhc3Mvc3R5bGUuc2NzcyIsInN0eWxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxXQUFBO0FBRUE7OztFQUdJLHNCQUFBO0VBQ0EsNENBQUE7RUFDQSxpQ0FBQTtBQ0FKOztBREdBO0VBQ0ksZ0JBQUE7QUNBSjs7QURHQTtFQUNJLGVBQUE7QUNBSjtBRENJO0VBQ0ksa0JBQUE7QUNDUjs7QURJQTtFQUNJLGdCQUFBO0VBQ0EsZUFBQTtBQ0RKO0FERUk7RUFDSSxrQkFBQTtBQ0FSOztBRElBO0VBQ0ksdUJBQUE7RUFDQSxZQUFBO0FDREo7QURFSTtFQUNJLHlCQUFBO0VBQ0EsMEJBQUE7RUFDQSxXQUFBO0VBQ0Esb0JBQUE7RUFDQSxtQkFBQTtFQUNBLGlDQUFBO0VBQ0Esb0NBQUE7QUNBUiIsImZpbGUiOiJzdHlsZS5jc3MifQ== */

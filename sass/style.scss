@@ -1,0 +1,43 @@
+/* GLOBAL */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    /* Temporary outline borders for debugging */
+    outline: 1px solid red !important;
+}
+
+body {
+    max-width: 992px;
+}
+
+.buttons {
+    font-size: 48px;
+    .move {
+        border-radius: 8px;
+    }
+    
+}
+
+.result {
+    min-width: 200px;
+    font-size: 48px;
+    p {
+        text-align: center;
+    }
+}
+
+button {
+    background-color: black;
+    color: white;
+    &:disabled {
+        background-color: #4d4343;
+        /* Light gray background */
+        color: #999;
+        /* Gray text color */
+        cursor: not-allowed;
+        /* Change cursor to not-allowed */
+        /* Add additional styles as needed */
+    }
+}
