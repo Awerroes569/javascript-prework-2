@@ -1,20 +1,21 @@
+//VARIABLES
+
 var humanMove = '';
 var cpuMove = '';
 var humanResult = 0;
 var cpuResult = 0;
 
 var messages = {
-    "start": "Press PLAY button to begin",
-    "kill": "KILL THEM ALL",
-    "move": "It's time for your move",
-    "win": "You win!",
-    "loss": "You lose",
-    "draw": "It's draw",
-    "think": "Waiting for CPU move...",
-    "clear": " ",
-    "endWin": "Congratulations! You won the game!",
-    "endLoss": "Sorry, you lost this time.",
-
+    "start":    "Press PLAY button to begin",
+    "kill":     "KILL THEM ALL",
+    "move":     "It's time for your move",
+    "win":      "You win!",
+    "loss":     "You lose",
+    "draw":     "It's draw",
+    "think":    "Waiting for CPU move...",
+    "clear":    " ",
+    "endWin":   "Congratulations! You won the game!",
+    "endLoss":  "Sorry, you lost this time.",
 }
 
 var myDictionary = {
@@ -28,6 +29,10 @@ var winPositions = [
     "SCISSORSPAPER",
     "PAPERSTONE"
 ];
+
+var allowedMoves = [1, 2, 3];
+
+//FUNCTIONS
 
 function printMessage(msg) {
     let div = document.createElement('div');
@@ -43,8 +48,6 @@ function generateNumber() {
     let randomNumber = Math.floor(Math.random() * 3 + 1);
     return randomNumber;
 }
-
-var allowedMoves = [1, 2, 3];
 
 function generateMoveDict() {
     let move = generateNumber();
@@ -129,15 +132,12 @@ function paperClicked() {
     console.log('paper was pressed');
     humanMove = 'PAPER';
     afterClick();
-    
-
 } 
 
 function scissorsClicked() {
     console.log('scissors were pressed');
     humanMove = 'SCISSORS';
     afterClick();
-    
 }
 
 function stoneClicked() {
@@ -178,18 +178,10 @@ function clearing() {
 }
 
 function clearingPause() {
-
     setTimeout(function () {
-        
-        //changeMoveButtonStatus(true);
-        //changePlayButtonStatus(false);
-        //refreshCurrentMessage("start");
         clearing();
     }, 2000);
-
 }
-
-
 
 function buttonsInitialPosition() {
     changeMoveButtonStatus(true);
@@ -210,7 +202,6 @@ function game() {
 }
 
 function playGame() {
-    
     hideHands();
     changeMoveButtonStatus(false);
     changePlayButtonStatus(true);
@@ -221,8 +212,6 @@ function playGame() {
     refreshHuman();
     refreshCpu();
     zeroingResults();
-    
-    
     refreshCurrentMessage("move");
 }
 
@@ -230,14 +219,11 @@ function changeResult(result) {
     if (result == "win") {
         humanResult += 1;
         document.getElementById("human-result").innerText = humanResult;
-        
-
     }
     else if (result == "loss") {
         cpuResult += 1;
         document.getElementById("cpu-result").innerText = cpuResult;
     }
-    
 }
 
 function showWhoWon(result) {
@@ -261,8 +247,6 @@ function hideHands() {
     document.getElementById("judge-draw").style.display = "none";
     document.getElementById("judge-loss").style.display = "none";
 }
-
-
 function afterClick() {
     
     //Disabling pss buttons
@@ -326,10 +310,10 @@ function afterClick() {
                 }
                 else if (cpuResult > 4) {
                     
-                    //Logging human win
+                    //Logging cpu win
                     console.log("CPU WON");
                     
-                    //Annoucing human win
+                    //Annoucing cpu win
                     refreshCurrentMessage("endLoss");
 
                     //Clearing game
@@ -349,14 +333,12 @@ function afterClick() {
 
                 }
 
-
             }, 2000);
             
         }, 1000);
 
     }, 1000);
     
-
 }
 
 

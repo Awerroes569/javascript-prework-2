@@ -1,14 +1,4 @@
-
-
-
-//console.log("trying duel");
-//console.log("human move time");
-//let byHumanMove = receiveHumanMove();
-//console.log("Human move is: " + byHumanMove);
-//let byAIMove = generateMoveIf();
-//console.log("AI move is: " + byAIMove);
-//let result = winOrLoss(byHumanMove, byAIMove);
-//console.log("the result for human is: " + result);
+//INITIALIZING LISTENERS
 
 let paperButton = document.getElementById('paper-button');
 paperButton.addEventListener('click', paperClicked);
@@ -22,6 +12,7 @@ stoneButton.addEventListener('click', stoneClicked);
 let playButton = document.getElementById('new-game-button');
 playButton.addEventListener('click', playGame);
 
+//INITIALIZING GAME
 
 game();
 
