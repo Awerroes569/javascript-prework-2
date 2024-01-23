@@ -1,3 +1,5 @@
+
+
 /* GLOBAL */
 
 *,
@@ -5,12 +7,26 @@
 *::after {
     box-sizing: border-box;
     /* Temporary outline borders for debugging */
-    outline: 1px solid red !important;
+    /* outline: 1px solid red !important; */ 
 }
 
 body {
-    max-width: 992px;
+    background: grey;
+    
+    
 }
+
+.container {
+    max-width: 992px; 
+    min-width: 576px;
+    border: 3px solid black;
+        border-radius: 8px;
+        background: white;
+
+    
+}
+
+
 
 .buttons {
     font-size: 48px;
@@ -20,12 +36,26 @@ body {
     
 }
 
+.results {
+        max-width: 500px;
+}
+
 .result {
-    min-width: 200px;
-    font-size: 48px;
+    min-width: 180px;
+    border: solid 3px;
+    border-radius: 8px;
+    font-weight: bold;
+
+    font-size: 36px;
+    
     p {
         text-align: center;
     }
+
+    .outcome {
+        font-size: 50px;
+    }
+
 }
 
 button {
@@ -40,4 +70,30 @@ button {
         /* Change cursor to not-allowed */
         /* Add additional styles as needed */
     }
+}
+
+.currents {
+    height:50px;
+    width: 120px;
+    text-justify: center;
+    text-align: center;
+    font-weight: bold;
+}
+
+.current-message {
+    display: flex;
+    font-size: 24px;
+    font-weight: bold;
+    align-items: center;
+    /* Vertical centering */
+    justify-content: center;
+        /* Horizontal centering */
+    border: solid 3px;
+    border-radius: 8px;
+    height: 80px;
+    min-width: 400px;
+}
+
+.judge {
+    min-width: 120px;
 }

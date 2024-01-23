@@ -1,5 +1,5 @@
-var humanMove = ' ';
-var cpuMove = ' ';
+var humanMove = '';
+var cpuMove = '';
 var humanResult = 0;
 var cpuResult = 0;
 
@@ -18,15 +18,15 @@ var messages = {
 }
 
 var myDictionary = {
-    1: "stone",
-    2: "paper",
-    3: "scissors"
+    1: "STONE",
+    2: "PAPER",
+    3: "SCISSORS"
 };
 
 var winPositions = [
-    "stonescissors",
-    "scissorspaper",
-    "paperstone"
+    "STONESCISSORS",
+    "SCISSORSPAPER",
+    "PAPERSTONE"
 ];
 
 function printMessage(msg) {
@@ -54,13 +54,13 @@ function generateMoveDict() {
 function generateMoveIf() {
     let move = generateNumber();
     if (move == 1) {
-        return "stone";
+        return "STONE";
     }
     else if (move == 2) {
-        return "paper";
+        return "PAPER";
     }
     else if (move == 3) {
-        return "scissors";
+        return "SCISSORS";
     }
     else {
         return "Error: move unknown  check generateMove* function"
@@ -111,6 +111,7 @@ function winOrLoss(byHuman, byAI) {
 }
 
 function refreshHuman() {
+    console.log("checking humanMove: " + humanMove); 
     document.getElementById("current-human").innerText = humanMove;
 }
 
@@ -121,11 +122,12 @@ function refreshCpu() {
 function clearingHumanAndCpu() {
     document.getElementById("current-human").innerText = '';
     document.getElementById("current-cpu").innerText = '';
+    hideHands();
 }
 
 function paperClicked() {
     console.log('paper was pressed');
-    humanMove = 'paper';
+    humanMove = 'PAPER';
     afterClick();
     
 
@@ -133,14 +135,14 @@ function paperClicked() {
 
 function scissorsClicked() {
     console.log('scissors were pressed');
-    humanMove = 'scissors';
+    humanMove = 'SCISSORS';
     afterClick();
     
 }
 
 function stoneClicked() {
     console.log('stone was pressed');
-    humanMove = 'stone';
+    humanMove = 'STONE';
     afterClick();
 }
 
@@ -163,6 +165,7 @@ function zeroingResults(num=0) {
     cpuMove = '';
     document.getElementById("human-result").innerText = num;
     document.getElementById("cpu-result").innerText = num;
+    hideHands();
 }
 
 function clearing() {
@@ -170,14 +173,18 @@ function clearing() {
     changePlayButtonStatus(false);
     refreshCurrentMessage("start");
     zeroingResults();
+    hideHands();
+    clearingHumanAndCpu();
 }
 
 function clearingPause() {
 
     setTimeout(function () {
-        changeMoveButtonStatus(true);
-        changePlayButtonStatus(false);
-        refreshCurrentMessage("start");
+        
+        //changeMoveButtonStatus(true);
+        //changePlayButtonStatus(false);
+        //refreshCurrentMessage("start");
+        clearing();
     }, 2000);
 
 }
@@ -191,14 +198,26 @@ function buttonsInitialPosition() {
 
 function game() {
     console.log('inside game');
-    clearing();
+    changeMoveButtonStatus(true);
+    hideHands();
+    humanResult = 0;
+    cpuResult = 0;
+    humanMove = '';
+    cpuMove = '';
+    refreshHuman();
+    refreshCpu();
+    zeroingResults();
 }
 
 function playGame() {
+    
+    hideHands();
     changeMoveButtonStatus(false);
     changePlayButtonStatus(true);
     humanResult = 0;
     cpuResult = 0;
+    humanMove =  '';
+    cpuMove = '';
     refreshHuman();
     refreshCpu();
     zeroingResults();
@@ -224,14 +243,25 @@ function changeResult(result) {
 function showWhoWon(result) {
     if (result == 'win') {
         refreshCurrentMessage("win");
+        document.getElementById("judge-win").style.display = "inline";
     }
     else if (result == 'loss') {
         refreshCurrentMessage("loss");
+        document.getElementById("judge-loss").style.display = "inline";
+
     }
     else {
         refreshCurrentMessage("draw");
+        document.getElementById("judge-draw").style.display = "inline";
     }
 }
+
+function hideHands() {
+    document.getElementById("judge-win").style.display = "none";
+    document.getElementById("judge-draw").style.display = "none";
+    document.getElementById("judge-loss").style.display = "none";
+}
+
 
 function afterClick() {
     
@@ -322,9 +352,9 @@ function afterClick() {
 
             }, 2000);
             
-        }, 2000);
+        }, 1000);
 
-    }, 2000);
+    }, 1000);
     
 
 }

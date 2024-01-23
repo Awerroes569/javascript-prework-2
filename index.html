@@ -25,15 +25,15 @@
 
 
 <body>
-    <div class="container row">
-        <p class="col-12 d-flex justify-content-around my-5 fs-4" style="font-weight: bold;">
+    <div class="container row  my-3 mx-auto">
+        <p class="col-12 d-flex justify-content-around my-3 fs-4" style="font-weight: bold;">
             PAPER-SCISSORS-STONE DEADLY GAME
         </p>
 
         <div class="buttons col-12 d-flex flex-row justify-content-center" id="buttons">
             <button 
                 id="new-game-button" 
-                class="move mx-4 px-4 py-1"
+                class="move m-3 px-4 py-1"
             >
                 <i class="fa-solid fa-circle-play"></i>
             </button>
@@ -42,50 +42,71 @@
 
 
 
-        <div class="results col-12 d-flex flex-row justify-content-around my-5 fs-4">
-            <div class="result">
+        <div class="col-12 d-flex flex-row justify-content-center align-content-center my-2 fs-4" style="margin-left: 20px;">
+
+            <div class="results d-flex flex-row">
+            
+            <div class="result" >
                 <p>
                     HUMAN
                 </p>
-                <p id="human-result">
+                <p id="human-result" class="outcome">
                     1
                 </p>
             </div>
 
-            <div class="result">
+
+            <div class="judge d-flex flex-column justify-content-center align-items-center" style="font-size: 72px;">
+                <i id="judge-win" class="fa-solid fa-hand-point-left"></i>
+                <i id="judge-draw" class="judge-sign judge-draw fa-solid fa-handshake"></i>
+                <i id="judge-loss" class="fa-solid fa-hand-point-right"></i>
+            </div>
+
+            <div class="result" style="margin-right: 20px;">
                 <p>
                     CPU
                 </p>
-                <p id="cpu-result">
+                <p id="cpu-result" class="outcome">
                     1
                 </p>
             </div>
 
+            </div>
+
         </div>
 
-        <div class="col-12">
-            Current action
+        <!-- MOVES -->
+
+        <div class="moves col-12 d-flex flex-row justify-content-center my-3 fs-4">
+            
+            <p id="current-human" class="currents">
+                
+            </p>
+            <p class="currents">
+                VS
+            </p>
+            <p id="current-cpu" class="currents">
+                
+            </p>
+            
         </div>
 
-        <div class="col-12" id="current-message">
-            Press "PLAY" button to begin
+
+
+ 
+
+        <div class="col-12 d-flex justify-content-center" >
+            <p class="current-message px-2" id="current-message">Press "PLAY" button to begin</p>
         </div>
 
-        <div  class="buttons col-12 d-flex flex-row justify-content-center" id="buttons">
+        <div  class="buttons col-12 d-flex flex-row justify-content-center mb-5" id="buttons">
             <button id="paper-button" class="move  mx-4 px-4 py-1"><i class="fa-solid fa-toilet-paper"></i></button>
             <button id="scissors-button" class="move  mx-4 px-4 py-1"><i class="fa-solid fa-scissors"></i></button>
             <button id="stone-button" class="move mx-4 px-4 py-1"><i class="fa-solid fa-gem"></i></button>
         </div>
 
-        <div class="current-moves">
-            <p id="current-human">
-                pupcia
-            </p>
-            <p id="current-cpu">
-                pupcia2
-            </p>
-        </div>
-        <div id="messages"></div>
+        
+        <!-- <div id="messages"></div> -->
     </div>
 
     <script src="js/functions.js">
