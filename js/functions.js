@@ -117,7 +117,7 @@ const receiveHumanMove = () => {
     }
 }
 
-function winOrLoss(byHuman, byAI) {
+const winOrLoss = (byHuman, byAI) => {
     if (byHuman == byAI) {
         return "draw";
     }
@@ -129,22 +129,22 @@ function winOrLoss(byHuman, byAI) {
     }
 }
 
-function refreshHuman() {
+const refreshHuman = () => {
     console.log("checking humanMove: " + humanMove);
     document.getElementById("current-human").innerText = humanMove;
 }
 
-function refreshCpu() {
+const refreshCpu= () => {
     document.getElementById("current-cpu").innerText = cpuMove;
 }
 
-function clearingHumanAndCpu() {
+const clearingHumanAndCpu = () => {
     document.getElementById("current-human").innerText = '';
     document.getElementById("current-cpu").innerText = '';
     hideHands();
 }
 
-function paperClicked() {
+const paperClicked = () => {
     console.log('paper was pressed');
     humanMove = 'PAPER';
     afterClick();
@@ -162,21 +162,21 @@ const stoneClicked = () => {
     afterClick();
 }
 
-function changeMoveButtonStatus(status) {
+const changeMoveButtonStatus = (status) => {
     paperButton.disabled = status;
     scissorsButton.disabled = status;
     stoneButton.disabled = status;
 }
 
-function changePlayButtonStatus(status) {
+const changePlayButtonStatus = (status) => {
     playButton.disabled = status;
 }
 
-function refreshCurrentMessage(msg) {
+const refreshCurrentMessage = (msg) => {
     document.getElementById("current-message").innerText = messages[msg];
 }
 
-function zeroingResults(num = 0) {
+const zeroingResults = (num = 0) => {
     humanMove = '';
     cpuMove = '';
     document.getElementById("human-result").innerText = num;
@@ -184,7 +184,7 @@ function zeroingResults(num = 0) {
     hideHands();
 }
 
-function clearing() {
+const clearing = () => {
     changeMoveButtonStatus(true);
     changePlayButtonStatus(false);
     refreshCurrentMessage("start");
@@ -193,13 +193,13 @@ function clearing() {
     clearingHumanAndCpu();
 }
 
-function clearingPause() {
+const clearingPause = () => {
     setTimeout(function () {
         clearing();
     }, 2000);
 }
 
-function buttonsInitialPosition() {
+const buttonsInitialPosition = () => {
     changeMoveButtonStatus(true);
     changePlayButtonStatus(false);
 }
@@ -217,7 +217,7 @@ const game = () => {
     zeroingResults();
 }
 
-function playGame() {
+const playGame = () => {
     hideHands();
     changeMoveButtonStatus(false);
     changePlayButtonStatus(true);
@@ -231,7 +231,7 @@ function playGame() {
     refreshCurrentMessage("move");
 }
 
-function changeResult(result) {
+const changeResult = (result) => {
     if (result == "win") {
         humanResult += 1;
         document.getElementById("human-result").innerText = humanResult;
@@ -242,7 +242,7 @@ function changeResult(result) {
     }
 }
 
-function showWhoWon(result) {
+const showWhoWon = (result) => {
     if (result == 'win') {
         refreshCurrentMessage("win");
         document.getElementById("judge-win").style.display = "inline";
@@ -258,12 +258,13 @@ function showWhoWon(result) {
     }
 }
 
-function hideHands() {
+const hideHands = () => {
     document.getElementById("judge-win").style.display = "none";
     document.getElementById("judge-draw").style.display = "none";
     document.getElementById("judge-loss").style.display = "none";
 }
-function afterClick() {
+
+const afterClick = () => {
 
     //Disabling pss buttons
     changeMoveButtonStatus(true);
