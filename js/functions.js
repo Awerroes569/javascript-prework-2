@@ -16,22 +16,31 @@ let humanMove = '';
 let cpuMove = '';
 let humanResult = 0;
 let cpuResult = 0;
+
 const paperButton = document.getElementById('paper-button');
 const scissorsButton = document.getElementById('scissors-button');
 const stoneButton = document.getElementById('stone-button');
 const playButton = document.getElementById('new-game-button');
+const message = document.getElementById('current-message');
+const currentHuman = document.getElementById('current-human');
+const currentCpu = document.getElementById('current-cpu');
+const human = document.getElementById("human-result");
+const cpu = document.getElementById("cpu-result");
+const judgeWin = document.getElementById("judge-win");
+const judgeDraw = document.getElementById("judge-draw");
+const judgeLoss = document.getElementById("judge-loss"); 
 
 const messages = {
-    "start": "Press PLAY button to begin",
-    "kill": "KILL THEM ALL",
-    "move": "It's time for your move",
-    "win": "You win!",
-    "loss": "You lose",
-    "draw": "It's draw",
-    "think": "Waiting for CPU move...",
-    "clear": " ",
-    "endWin": "Congratulations! You won the game!",
-    "endLoss": "Sorry, you lost this time.",
+    "start":    "Press PLAY button to begin",
+    "kill":     "KILL THEM ALL",
+    "move":     "It's time for your move",
+    "win":      "You win!",
+    "loss":     "You lose",
+    "draw":     "It's draw",
+    "think":    "Waiting for CPU move...",
+    "clear":    " ",
+    "endWin":   "Congratulations! You won the game!",
+    "endLoss":  "Sorry, you lost this time.",
 }
 
 const myDictionary = {
@@ -53,11 +62,11 @@ const allowedMoves = [1, 2, 3];
 const printMessage = (msg) => {
     let div = document.createElement('div');
     div.innerHTML = msg;
-    document.getElementById('messages').appendChild(div);
+    message.appendChild(div);
 }
 
 const clearMessages = () => {
-    document.getElementById('messages').innerHTML = '';
+    message.innerHTML = '';
 }
 
 const generateNumber = () => {
@@ -131,16 +140,16 @@ const winOrLoss = (byHuman, byAI) => {
 
 const refreshHuman = () => {
     console.log("checking humanMove: " + humanMove);
-    document.getElementById("current-human").innerText = humanMove;
+    currentHuman.innerText = humanMove;
 }
 
 const refreshCpu= () => {
-    document.getElementById("current-cpu").innerText = cpuMove;
+    currentCpu.innerText = cpuMove;
 }
 
 const clearingHumanAndCpu = () => {
-    document.getElementById("current-human").innerText = '';
-    document.getElementById("current-cpu").innerText = '';
+    currentHuman.innerText = '';
+    currentCpu.innerText = '';
     hideHands();
 }
 
@@ -173,14 +182,14 @@ const changePlayButtonStatus = (status) => {
 }
 
 const refreshCurrentMessage = (msg) => {
-    document.getElementById("current-message").innerText = messages[msg];
+    message.innerText = messages[msg];
 }
 
 const zeroingResults = (num = 0) => {
     humanMove = '';
     cpuMove = '';
-    document.getElementById("human-result").innerText = num;
-    document.getElementById("cpu-result").innerText = num;
+    human.innerText = num;
+    cpu.innerText = num;
     hideHands();
 }
 
@@ -234,34 +243,33 @@ const playGame = () => {
 const changeResult = (result) => {
     if (result == "win") {
         humanResult += 1;
-        document.getElementById("human-result").innerText = humanResult;
+        currentHuman.innerText = humanResult;
     }
     else if (result == "loss") {
         cpuResult += 1;
-        document.getElementById("cpu-result").innerText = cpuResult;
+        cpu.innerText = cpuResult;
     }
 }
 
 const showWhoWon = (result) => {
     if (result == 'win') {
         refreshCurrentMessage("win");
-        document.getElementById("judge-win").style.display = "inline";
+        judgeWin.style.display = "inline";
     }
     else if (result == 'loss') {
         refreshCurrentMessage("loss");
-        document.getElementById("judge-loss").style.display = "inline";
-
+        judgeLoss.style.display = "inline";
     }
     else {
         refreshCurrentMessage("draw");
-        document.getElementById("judge-draw").style.display = "inline";
+        judgeDraw.style.display = "inline";
     }
 }
 
 const hideHands = () => {
-    document.getElementById("judge-win").style.display = "none";
-    document.getElementById("judge-draw").style.display = "none";
-    document.getElementById("judge-loss").style.display = "none";
+    judgeWin.style.display = "none";
+    judgeDraw.style.display = "none";
+    judgeLoss.style.display = "none";
 }
 
 const afterClick = () => {
