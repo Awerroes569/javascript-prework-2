@@ -1,345 +1,365 @@
-//VARIABLES
-
-var humanMove = '';
-var cpuMove = '';
-var humanResult = 0;
-var cpuResult = 0;
-
-var messages = {
-    "start":    "Press PLAY button to begin",
-    "kill":     "KILL THEM ALL",
-    "move":     "It's time for your move",
-    "win":      "You win!",
-    "loss":     "You lose",
-    "draw":     "It's draw",
-    "think":    "Waiting for CPU move...",
-    "clear":    " ",
-    "endWin":   "Congratulations! You won the game!",
-    "endLoss":  "Sorry, you lost this time.",
-}
-
-var myDictionary = {
-    1: "STONE",
-    2: "PAPER",
-    3: "SCISSORS"
+export {
+    paperClicked,
+    scissorsClicked,
+    stoneClicked,
+    game,
+    playGame,
+    paperButton,
+    scissorsButton,
+    stoneButton,
+    playButton,
 };
 
-var winPositions = [
-    "STONESCISSORS",
-    "SCISSORSPAPER",
-    "PAPERSTONE"
-];
 
-var allowedMoves = [1, 2, 3];
 
-//FUNCTIONS
+//VARIABLES
 
-function printMessage(msg) {
-    let div = document.createElement('div');
-    div.innerHTML = msg;
-    document.getElementById('messages').appendChild(div);
-}
+let humanMove = '';
+let cpuMove = '';
+let humanResult = 0;
+let cpuResult = 0;
+const paperButton = document.getElementById('paper-button');
+const scissorsButton = document.getElementById('scissors-button');
+const stoneButton = document.getElementById('stone-button');
+const playButton = document.getElementById('new-game-button');
 
-function clearMessages() {
-    document.getElementById('messages').innerHTML = '';
-}
-
-function generateNumber() {
-    let randomNumber = Math.floor(Math.random() * 3 + 1);
-    return randomNumber;
-}
-
-function generateMoveDict() {
-    let move = generateNumber();
-    return myDictionary[move];
-}
-
-function generateMoveIf() {
-    let move = generateNumber();
-    if (move == 1) {
-        return "STONE";
-    }
-    else if (move == 2) {
-        return "PAPER";
-    }
-    else if (move == 3) {
-        return "SCISSORS";
-    }
-    else {
-        return "Error: move unknown  check generateMove* function"
-    }
-}
-
-function generateMove(callback, number) {
-    var functionList = [generateMoveDict, generateMoveIf];
-    if (functionList.includes(callback)) {
-        console.log("callback is in the list");
-    } else {
-        console.log("Error: function is not in the list or doesnt exist");
-        return;
+    const messages = {
+        "start": "Press PLAY button to begin",
+        "kill": "KILL THEM ALL",
+        "move": "It's time for your move",
+        "win": "You win!",
+        "loss": "You lose",
+        "draw": "It's draw",
+        "think": "Waiting for CPU move...",
+        "clear": " ",
+        "endWin": "Congratulations! You won the game!",
+        "endLoss": "Sorry, you lost this time.",
     }
 
-    console.log("Executing callback " + callback.name + " " + number + " times:")
+    const myDictionary = {
+        1: "STONE",
+        2: "PAPER",
+        3: "SCISSORS"
+    };
 
-    for (var i = 0; i < number; i++) {
-        console.log(callback())
+    const winPositions = [
+        "STONESCISSORS",
+        "SCISSORSPAPER",
+        "PAPERSTONE"
+    ];
+
+    const allowedMoves = [1, 2, 3];
+
+    //FUNCTIONS
+
+    function printMessage(msg) {
+        let div = document.createElement('div');
+        div.innerHTML = msg;
+        document.getElementById('messages').appendChild(div);
     }
-}
 
-function receiveHumanMove() {
+    function clearMessages() {
+        document.getElementById('messages').innerHTML = '';
+    }
 
-    var userInput = 0;
+    function generateNumber() {
+        let randomNumber = Math.floor(Math.random() * 3 + 1);
+        return randomNumber;
+    }
 
-    while (true) {
-        var userInput = Number(prompt("Please enter your move:"));
-        if (allowedMoves.includes(userInput)) {
-            return myDictionary[userInput];
+    function generateMoveDict() {
+        let move = generateNumber();
+        return myDictionary[move];
+    }
+
+    function generateMoveIf() {
+        let move = generateNumber();
+        if (move == 1) {
+            return "STONE";
+        }
+        else if (move == 2) {
+            return "PAPER";
+        }
+        else if (move == 3) {
+            return "SCISSORS";
         }
         else {
-            console.log("Error: not valid move   try again");
+            return "Error: move unknown  check generateMove* function"
         }
     }
-}
 
-function winOrLoss(byHuman, byAI) {
-    if (byHuman == byAI) {
-        return "draw";
+    function generateMove(callback, number) {
+        var functionList = [generateMoveDict, generateMoveIf];
+        if (functionList.includes(callback)) {
+            console.log("callback is in the list");
+        } else {
+            console.log("Error: function is not in the list or doesnt exist");
+            return;
+        }
+
+        console.log("Executing callback " + callback.name + " " + number + " times:")
+
+        for (var i = 0; i < number; i++) {
+            console.log(callback())
+        }
     }
-    else if (winPositions.includes(byHuman + byAI)) {
-        return "win";
+
+    function receiveHumanMove() {
+
+        var userInput = 0;
+
+        while (true) {
+            var userInput = Number(prompt("Please enter your move:"));
+            if (allowedMoves.includes(userInput)) {
+                return myDictionary[userInput];
+            }
+            else {
+                console.log("Error: not valid move   try again");
+            }
+        }
     }
-    else {
-        return "loss";
+
+    function winOrLoss(byHuman, byAI) {
+        if (byHuman == byAI) {
+            return "draw";
+        }
+        else if (winPositions.includes(byHuman + byAI)) {
+            return "win";
+        }
+        else {
+            return "loss";
+        }
     }
-}
 
-function refreshHuman() {
-    console.log("checking humanMove: " + humanMove); 
-    document.getElementById("current-human").innerText = humanMove;
-}
-
-function refreshCpu() {
-    document.getElementById("current-cpu").innerText = cpuMove;
-}
-
-function clearingHumanAndCpu() {
-    document.getElementById("current-human").innerText = '';
-    document.getElementById("current-cpu").innerText = '';
-    hideHands();
-}
-
-function paperClicked() {
-    console.log('paper was pressed');
-    humanMove = 'PAPER';
-    afterClick();
-} 
-
-function scissorsClicked() {
-    console.log('scissors were pressed');
-    humanMove = 'SCISSORS';
-    afterClick();
-}
-
-function stoneClicked() {
-    console.log('stone was pressed');
-    humanMove = 'STONE';
-    afterClick();
-}
-
-function changeMoveButtonStatus(status) {
-    paperButton.disabled = status;
-    scissorsButton.disabled = status;
-    stoneButton.disabled = status;
-}
-
-function changePlayButtonStatus(status) {
-    playButton.disabled = status;
-}
-
-function refreshCurrentMessage(msg) {
-    document.getElementById("current-message").innerText = messages[msg];
-}
-
-function zeroingResults(num=0) {
-    humanMove = '';
-    cpuMove = '';
-    document.getElementById("human-result").innerText = num;
-    document.getElementById("cpu-result").innerText = num;
-    hideHands();
-}
-
-function clearing() {
-    changeMoveButtonStatus(true);
-    changePlayButtonStatus(false);
-    refreshCurrentMessage("start");
-    zeroingResults();
-    hideHands();
-    clearingHumanAndCpu();
-}
-
-function clearingPause() {
-    setTimeout(function () {
-        clearing();
-    }, 2000);
-}
-
-function buttonsInitialPosition() {
-    changeMoveButtonStatus(true);
-    changePlayButtonStatus(false);
-}
-
-function game() {
-    console.log('inside game');
-    changeMoveButtonStatus(true);
-    hideHands();
-    humanResult = 0;
-    cpuResult = 0;
-    humanMove = '';
-    cpuMove = '';
-    refreshHuman();
-    refreshCpu();
-    zeroingResults();
-}
-
-function playGame() {
-    hideHands();
-    changeMoveButtonStatus(false);
-    changePlayButtonStatus(true);
-    humanResult = 0;
-    cpuResult = 0;
-    humanMove =  '';
-    cpuMove = '';
-    refreshHuman();
-    refreshCpu();
-    zeroingResults();
-    refreshCurrentMessage("move");
-}
-
-function changeResult(result) {
-    if (result == "win") {
-        humanResult += 1;
-        document.getElementById("human-result").innerText = humanResult;
+    function refreshHuman() {
+        console.log("checking humanMove: " + humanMove);
+        document.getElementById("current-human").innerText = humanMove;
     }
-    else if (result == "loss") {
-        cpuResult += 1;
-        document.getElementById("cpu-result").innerText = cpuResult;
+
+    function refreshCpu() {
+        document.getElementById("current-cpu").innerText = cpuMove;
     }
-}
 
-function showWhoWon(result) {
-    if (result == 'win') {
-        refreshCurrentMessage("win");
-        document.getElementById("judge-win").style.display = "inline";
+    function clearingHumanAndCpu() {
+        document.getElementById("current-human").innerText = '';
+        document.getElementById("current-cpu").innerText = '';
+        hideHands();
     }
-    else if (result == 'loss') {
-        refreshCurrentMessage("loss");
-        document.getElementById("judge-loss").style.display = "inline";
 
+    function paperClicked() {
+        console.log('paper was pressed');
+        humanMove = 'PAPER';
+        afterClick();
     }
-    else {
-        refreshCurrentMessage("draw");
-        document.getElementById("judge-draw").style.display = "inline";
+
+    const scissorsClicked = () => {
+        console.log('scissors were pressed');
+        humanMove = 'SCISSORS';
+        afterClick();
     }
-}
 
-function hideHands() {
-    document.getElementById("judge-win").style.display = "none";
-    document.getElementById("judge-draw").style.display = "none";
-    document.getElementById("judge-loss").style.display = "none";
-}
-function afterClick() {
-    
-    //Disabling pss buttons
-    changeMoveButtonStatus(true);
+    const stoneClicked = () => {
+        console.log('stone was pressed');
+        humanMove = 'STONE';
+        afterClick();
+    }
 
-    //Updating current human move string
-    refreshHuman();
+    function changeMoveButtonStatus(status) {
+        paperButton.disabled = status;
+        scissorsButton.disabled = status;
+        stoneButton.disabled = status;
+    }
 
-    //Generating cpu move and updating cpuMove var
-    cpuMove = generateMoveDict();
+    function changePlayButtonStatus(status) {
+        playButton.disabled = status;
+    }
 
-    //Signaling cpu thinking
-    refreshCurrentMessage("think");
+    function refreshCurrentMessage(msg) {
+        document.getElementById("current-message").innerText = messages[msg];
+    }
 
-    //Logging cpu move
-    console.log('cpu move: ' + cpuMove);
+    function zeroingResults(num = 0) {
+        humanMove = '';
+        cpuMove = '';
+        document.getElementById("human-result").innerText = num;
+        document.getElementById("cpu-result").innerText = num;
+        hideHands();
+    }
 
-    //WAIT
-    
-    setTimeout(function () {
-        
-        //Clearing current message
-        refreshCurrentMessage("clear");
+    function clearing() {
+        changeMoveButtonStatus(true);
+        changePlayButtonStatus(false);
+        refreshCurrentMessage("start");
+        zeroingResults();
+        hideHands();
+        clearingHumanAndCpu();
+    }
 
-        //Updating current cpu move string
+    function clearingPause() {
+        setTimeout(function () {
+            clearing();
+        }, 2000);
+    }
+
+    function buttonsInitialPosition() {
+        changeMoveButtonStatus(true);
+        changePlayButtonStatus(false);
+    }
+
+    const game = () => {
+        console.log('inside game');
+        changeMoveButtonStatus(true);
+        hideHands();
+        humanResult = 0;
+        cpuResult = 0;
+        humanMove = '';
+        cpuMove = '';
+        refreshHuman();
         refreshCpu();
+        zeroingResults();
+    }
 
-        //Checking who won
-        let currentResult = winOrLoss(humanMove, cpuMove);
+    function playGame() {
+        hideHands();
+        changeMoveButtonStatus(false);
+        changePlayButtonStatus(true);
+        humanResult = 0;
+        cpuResult = 0;
+        humanMove = '';
+        cpuMove = '';
+        refreshHuman();
+        refreshCpu();
+        zeroingResults();
+        refreshCurrentMessage("move");
+    }
 
-        //Logging current result
-        console.log("current result: " + currentResult);
+    function changeResult(result) {
+        if (result == "win") {
+            humanResult += 1;
+            document.getElementById("human-result").innerText = humanResult;
+        }
+        else if (result == "loss") {
+            cpuResult += 1;
+            document.getElementById("cpu-result").innerText = cpuResult;
+        }
+    }
+
+    function showWhoWon(result) {
+        if (result == 'win') {
+            refreshCurrentMessage("win");
+            document.getElementById("judge-win").style.display = "inline";
+        }
+        else if (result == 'loss') {
+            refreshCurrentMessage("loss");
+            document.getElementById("judge-loss").style.display = "inline";
+
+        }
+        else {
+            refreshCurrentMessage("draw");
+            document.getElementById("judge-draw").style.display = "inline";
+        }
+    }
+
+    function hideHands() {
+        document.getElementById("judge-win").style.display = "none";
+        document.getElementById("judge-draw").style.display = "none";
+        document.getElementById("judge-loss").style.display = "none";
+    }
+    function afterClick() {
+    
+        //Disabling pss buttons
+        changeMoveButtonStatus(true);
+
+        //Updating current human move string
+        refreshHuman();
+
+        //Generating cpu move and updating cpuMove var
+        cpuMove = generateMoveDict();
+
+        //Signaling cpu thinking
+        refreshCurrentMessage("think");
+
+        //Logging cpu move
+        console.log('cpu move: ' + cpuMove);
 
         //WAIT
+    
         setTimeout(function () {
+        
+            //Clearing current message
+            refreshCurrentMessage("clear");
 
-            //Showing who won
-            showWhoWon(currentResult);
+            //Updating current cpu move string
+            refreshCpu();
 
-            //Changing current result
-            changeResult(currentResult);
+            //Checking who won
+            let currentResult = winOrLoss(humanMove, cpuMove);
 
-            //Logging the outcome
-            console.log("current outcome: Human " + humanResult + " : " + cpuResult + " CPU");
+            //Logging current result
+            console.log("current result: " + currentResult);
 
             //WAIT
             setTimeout(function () {
 
-                //Checking if game is over
-                if (humanResult > 4) {
+                //Showing who won
+                showWhoWon(currentResult);
+
+                //Changing current result
+                changeResult(currentResult);
+
+                //Logging the outcome
+                console.log("current outcome: Human " + humanResult + " : " + cpuResult + " CPU");
+
+                //WAIT
+                setTimeout(function () {
+
+                    //Checking if game is over
+                    if (humanResult > 4) {
                     
-                    //Logging human win
-                    console.log("HUMAN WON");
+                        //Logging human win
+                        console.log("HUMAN WON");
                     
-                    //Annoucing human win
-                    refreshCurrentMessage("endWin");
+                        //Annoucing human win
+                        refreshCurrentMessage("endWin");
 
-                    //Clearing game
-                    clearingPause();
+                        //Clearing game
+                        clearingPause();
 
-                }
-                else if (cpuResult > 4) {
+                    }
+                    else if (cpuResult > 4) {
                     
-                    //Logging cpu win
-                    console.log("CPU WON");
+                        //Logging cpu win
+                        console.log("CPU WON");
                     
-                    //Annoucing cpu win
-                    refreshCurrentMessage("endLoss");
+                        //Annoucing cpu win
+                        refreshCurrentMessage("endLoss");
 
-                    //Clearing game
-                    clearingPause();
+                        //Clearing game
+                        clearingPause();
 
-                }
-                else {
+                    }
+                    else {
 
-                    //Clearing moves
-                    clearingHumanAndCpu();
+                        //Clearing moves
+                        clearingHumanAndCpu();
                     
-                    //Intice to play
-                    refreshCurrentMessage("move");
+                        //Intice to play
+                        refreshCurrentMessage("move");
 
-                    //Change move button status
-                    changeMoveButtonStatus(false);
+                        //Change move button status
+                        changeMoveButtonStatus(false);
 
-                }
+                    }
 
-            }, 2000);
+                }, 2000);
             
-        }, 1000);
+            }, 1000);
 
-    }, 1000);
+        }, 1000);
     
-}
+    }
+
+ 
 
 
 
